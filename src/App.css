@@ -1,0 +1,95 @@
+/* Tablets (768px – 1024px) */
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 28px !important;
+  }
+  h2 {
+    font-size: 24px !important;
+  }
+  h3 {
+    font-size: 20px !important;
+  }
+  h4 {
+    font-size: 18px !important;
+  }
+  h5 {
+    font-size: 16px !important;
+  }
+  h6 {
+    font-size: 14px !important;
+  }
+  p,
+  span,
+  a,
+  li,
+  td,
+  th,
+  label,
+  div {
+    font-size: 15px !important;
+  }
+}
+
+/* Mobile (up to 767px) */
+@media (max-width: 767px) {
+  h1 {
+    font-size: 24px !important;
+  }
+  h2 {
+    font-size: 20px !important;
+  }
+  h3 {
+    font-size: 18px !important;
+  }
+  h4 {
+    font-size: 16px !important;
+  }
+  h5 {
+    font-size: 14px !important;
+  }
+  h6 {
+    font-size: 13px !important;
+  }
+  p,
+  span,
+  a,
+  li,
+  td,
+  th,
+  label,
+  div {
+    font-size: 14px !important;
+  }
+}
+
+/* Small Mobile (up to 360px) */
+@media (max-width: 360px) {
+  h1 {
+    font-size: 22px !important;
+  }
+  h2 {
+    font-size: 18px !important;
+  }
+  h3 {
+    font-size: 16px !important;
+  }
+  h4 {
+    font-size: 14px !important;
+  }
+  h5 {
+    font-size: 13px !important;
+  }
+  h6 {
+    font-size: 12px !important;
+  }
+  p,
+  span,
+  a,
+  li,
+  td,
+  th,
+  label,
+  div {
+    font-size: 13px !important;
+  }
+}
