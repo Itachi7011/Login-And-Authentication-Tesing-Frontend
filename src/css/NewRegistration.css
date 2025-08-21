@@ -1,0 +1,853 @@
+/* Base Variables */
+:root {
+  --otaku-primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --otaku-secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --otaku-accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --otaku-success-color: #10b981;
+  --otaku-error-color: #ef4444;
+  --otaku-warning-color: #f59e0b;
+  --otaku-border-radius: 16px;
+  --otaku-shadow-elevation: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --otaku-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Theme Variables */
+.otaku-registration-container.light {
+  --otaku-bg-primary: #f8fafc;
+  --otaku-bg-secondary: #ffffff;
+  --otaku-bg-card: rgba(255, 255, 255, 0.9);
+  --otaku-text-primary: #1e293b;
+  --otaku-text-secondary: #64748b;
+  --otaku-text-muted: #94a3b8;
+  --otaku-border-color: #e2e8f0;
+  --otaku-input-bg: #ffffff;
+  --otaku-hover-bg: #f1f5f9;
+}
+
+/* Dark Theme Variables */
+.otaku-registration-container.dark {
+  --otaku-bg-primary: #0f172a;
+  --otaku-bg-secondary: #1e293b;
+  --otaku-bg-card: rgba(30, 41, 59, 0.9);
+  --otaku-text-primary: #f8fafc;
+  --otaku-text-secondary: #cbd5e1;
+  --otaku-text-muted: #64748b;
+  --otaku-border-color: #334155;
+  --otaku-input-bg: #334155;
+  --otaku-hover-bg: #475569;
+}
+
+/* Container and Layout */
+.otaku-registration-container {
+  min-height: 100vh;
+  background: var(--otaku-bg-primary);
+  position: relative;
+  overflow-x: hidden;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  transition: var(--otaku-transition);
+}
+
+.otaku-registration-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Background Animation */
+.otaku-background-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.otaku-floating-element {
+  position: absolute;
+  opacity: 0.1;
+  animation: otaku-float 20s infinite linear;
+}
+
+.otaku-sakura-1 {
+  width: 30px;
+  height: 30px;
+  background: var(--otaku-secondary-gradient);
+  border-radius: 50% 0 50% 50%;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.otaku-sakura-2 {
+  width: 25px;
+  height: 25px;
+  background: var(--otaku-accent-gradient);
+  border-radius: 50% 0 50% 50%;
+  top: 60%;
+  right: 15%;
+  animation-delay: -5s;
+}
+
+.otaku-sakura-3 {
+  width: 35px;
+  height: 35px;
+  background: var(--otaku-primary-gradient);
+  border-radius: 50% 0 50% 50%;
+  top: 30%;
+  left: 80%;
+  animation-delay: -10s;
+}
+
+.otaku-star-1 {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 10px solid rgba(102, 126, 234, 0.3);
+  top: 20%;
+  right: 30%;
+  animation-delay: -7s;
+}
+
+.otaku-star-2 {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 8px solid rgba(245, 87, 108, 0.3);
+  top: 70%;
+  left: 20%;
+  animation-delay: -15s;
+}
+
+@keyframes otaku-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+  }
+}
+
+/* Header Section */
+.otaku-registration-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.otaku-logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.otaku-logo-circle {
+  width: 80px;
+  height: 80px;
+  background: var(--otaku-primary-gradient);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--otaku-shadow-elevation);
+  animation: otaku-pulse 2s infinite;
+}
+
+.otaku-logo-text {
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes otaku-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.otaku-main-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  background: var(--otaku-primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.otaku-subtitle {
+  font-size: 1.25rem;
+  color: var(--otaku-text-secondary);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Registration Card */
+.otaku-registration-card {
+  background: var(--otaku-bg-card);
+  backdrop-filter: blur(20px);
+  border-radius: var(--otaku-border-radius);
+  box-shadow: var(--otaku-shadow-elevation);
+  border: 1px solid var(--otaku-border-color);
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  transition: var(--otaku-transition);
+}
+
+.otaku-registration-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Form Sections */
+.otaku-signup-form-section {
+  margin-bottom: 2.5rem;
+}
+
+.otaku-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--otaku-text-primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid transparent;
+  background: var(--otaku-primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.otaku-section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background: var(--otaku-primary-gradient);
+  border-radius: 2px;
+}
+
+.otaku-section-icon {
+  width: 24px;
+  height: 24px;
+  color: #667eea;
+}
+
+/* Avatar Section */
+.otaku-avatar-section {
+  text-align: center;
+}
+
+.otaku-avatar-display {
+  margin-bottom: 2rem;
+}
+
+.otaku-current-avatar {
+  display: inline-block;
+  position: relative;
+}
+
+.otaku-avatar-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid transparent;
+  background: var(--otaku-primary-gradient);
+  padding: 4px;
+  box-shadow: var(--otaku-shadow-elevation);
+  transition: var(--otaku-transition);
+}
+
+.otaku-avatar-preview:hover {
+  transform: scale(1.05);
+}
+
+.otaku-avatar-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.otaku-avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.otaku-avatar-option {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid var(--otaku-border-color);
+  transition: var(--otaku-transition);
+  background: var(--otaku-input-bg);
+}
+
+.otaku-avatar-option:hover {
+  transform: scale(1.1);
+  border-color: #667eea;
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.otaku-avatar-option.otaku-selected {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+.otaku-avatar-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.otaku-check-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  color: white;
+  background: var(--otaku-success-color);
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.otaku-custom-upload {
+  display: flex;
+  justify-content: center;
+}
+
+.otaku-upload-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--otaku-accent-gradient);
+  color: white;
+  border-radius: var(--otaku-border-radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--otaku-transition);
+  border: none;
+  font-size: 0.9rem;
+}
+
+.otaku-upload-label:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(79, 172, 254, 0.4);
+}
+
+.otaku-upload-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.otaku-file-input {
+  display: none;
+}
+
+/* Form Grid and Groups */
+.otaku-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.otaku-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.otaku-form-label {
+  font-weight: 600;
+  color: var(--otaku-text-primary);
+  font-size: 0.95rem;
+  letter-spacing: 0.025em;
+}
+
+/* Input Styling */
+.otaku-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.otaku-form-input,
+.otaku-form-select {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;
+  background: var(--otaku-input-bg);
+  border: 2px solid var(--otaku-border-color);
+  border-radius: var(--otaku-border-radius);
+  font-size: 1rem;
+  color: var(--otaku-text-primary);
+  transition: var(--otaku-transition);
+  outline: none;
+}
+
+.otaku-form-input:focus,
+.otaku-form-select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+}
+
+.otaku-input-icon {
+  position: absolute;
+  left: 1rem;
+  width: 20px;
+  height: 20px;
+  color: var(--otaku-text-muted);
+  z-index: 2;
+}
+
+.otaku-password-toggle {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--otaku-text-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: var(--otaku-transition);
+}
+
+.otaku-password-toggle:hover {
+  color: var(--otaku-text-primary);
+  background: var(--otaku-hover-bg);
+}
+
+/* Password Strength Indicator */
+.otaku-password-strength {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.otaku-strength-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--otaku-border-color);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.otaku-strength-fill {
+  height: 100%;
+  transition: var(--otaku-transition);
+  border-radius: 2px;
+}
+
+.otaku-strength-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-width: 60px;
+}
+
+/* Password Match Indicator */
+.otaku-password-match {
+  position: absolute;
+  right: 3.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.otaku-match-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.otaku-match-success {
+  color: var(--otaku-success-color);
+}
+
+.otaku-match-error {
+  color: var(--otaku-error-color);
+}
+
+/* Checkbox Styling */
+.otaku-terms-section {
+  margin-bottom: 2rem;
+}
+
+.otaku-checkbox-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  line-height: 1.6;
+}
+
+.otaku-checkbox-input {
+  display: none;
+}
+
+.otaku-checkbox-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--otaku-border-color);
+  border-radius: 4px;
+  background: var(--otaku-input-bg);
+  position: relative;
+  transition: var(--otaku-transition);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.otaku-checkbox-input:checked + .otaku-checkbox-custom {
+  background: var(--otaku-primary-gradient);
+  border-color: #667eea;
+}
+
+.otaku-checkbox-input:checked + .otaku-checkbox-custom::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+.otaku-checkbox-text {
+  color: var(--otaku-text-secondary);
+  font-size: 0.95rem;
+}
+
+.otaku-link {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--otaku-transition);
+}
+
+.otaku-link:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* Submit Button */
+.otaku-submit-button {
+  width: 100%;
+  padding: 1.25rem 2rem;
+  background: var(--otaku-primary-gradient);
+  color: white;
+  border: none;
+  border-radius: var(--otaku-border-radius);
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--otaku-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.otaku-submit-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+}
+
+.otaku-submit-button:active:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.otaku-submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.otaku-submit-button.otaku-submitting {
+  background: var(--otaku-text-muted);
+}
+
+.otaku-button-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.otaku-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: otaku-spin 1s linear infinite;
+}
+
+@keyframes otaku-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Login Link */
+.otaku-login-link-section {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--otaku-border-color);
+}
+
+.otaku-login-text {
+  color: var(--otaku-text-secondary);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.otaku-login-link {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--otaku-transition);
+}
+
+.otaku-login-link:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* Features Section */
+.otaku-features-section {
+  background: var(--otaku-bg-card);
+  backdrop-filter: blur(20px);
+  border-radius: var(--otaku-border-radius);
+  padding: 2rem;
+  border: 1px solid var(--otaku-border-color);
+  box-shadow: var(--otaku-shadow-elevation);
+}
+
+.otaku-features-title {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--otaku-text-primary);
+  margin-bottom: 2rem;
+  background: var(--otaku-secondary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.otaku-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.otaku-feature-card {
+  background: var(--otaku-input-bg);
+  padding: 1.5rem;
+  border-radius: var(--otaku-border-radius);
+  border: 1px solid var(--otaku-border-color);
+  text-align: center;
+  transition: var(--otaku-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.otaku-feature-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(102, 126, 234, 0.1),
+    transparent
+  );
+  transition: var(--otaku-transition);
+}
+
+.otaku-feature-card:hover::before {
+  left: 100%;
+}
+
+.otaku-feature-card:hover {
+  transform: translateY(-5px);
+  border-color: #667eea;
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+}
+
+.otaku-feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.otaku-feature-card h4 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--otaku-text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.otaku-feature-card p {
+  color: var(--otaku-text-secondary);
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .otaku-registration-wrapper {
+    padding: 1rem;
+  }
+
+  .otaku-registration-card {
+    padding: 1.5rem;
+  }
+
+  .otaku-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .otaku-avatar-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 300px;
+  }
+
+  .otaku-avatar-option {
+    width: 70px;
+    height: 70px;
+  }
+
+  .otaku-main-title {
+    font-size: 2.5rem;
+  }
+
+  .otaku-features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .otaku-checkbox-wrapper {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .otaku-registration-wrapper {
+    padding: 0.5rem;
+  }
+
+  .otaku-registration-card {
+    padding: 1rem;
+  }
+
+  .otaku-avatar-preview {
+    width: 100px;
+    height: 100px;
+  }
+
+  .otaku-avatar-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 200px;
+  }
+
+  .otaku-avatar-option {
+    width: 60px;
+    height: 60px;
+  }
+
+  .otaku-form-input,
+  .otaku-form-select {
+    padding: 0.875rem 0.875rem 0.875rem 2.75rem;
+    font-size: 0.95rem;
+  }
+
+  .otaku-submit-button {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .otaku-features-section {
+    padding: 1.5rem;
+  }
+}
+
+/* High-DPI Display Support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .otaku-logo-circle {
+    background-size: 200% 200%;
+  }
+
+  .otaku-submit-button {
+    background-size: 200% 200%;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .otaku-floating-element {
+    animation: none;
+  }
+}
+
+/* Focus Styles for Accessibility */
+.otaku-form-input:focus-visible,
+.otaku-form-select:focus-visible,
+.otaku-submit-button:focus-visible,
+.otaku-upload-label:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .otaku-background-animation,
+  .otaku-features-section {
+    display: none;
+  }
+
+  .otaku-registration-container {
+    background: white;
+    color: black;
+  }
+}

@@ -1,0 +1,923 @@
+/* OtakuLogin.css */
+
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+/* CSS Variables for Theme Colors */
+:root {
+  /* Light Theme */
+  --otaku-primary-gradient: linear-gradient(
+    135deg,
+    #8b5cf6 0%,
+    #a855f7 50%,
+    #c084fc 100%
+  );
+  --otaku-secondary-gradient: linear-gradient(
+    135deg,
+    #06b6d4 0%,
+    #0ea5e9 50%,
+    #3b82f6 100%
+  );
+  --otaku-accent-color: #f59e0b;
+  --otaku-success-color: #10b981;
+  --otaku-error-color: #ef4444;
+  --otaku-warning-color: #f59e0b;
+
+  /* Light Theme Backgrounds */
+  --otaku-bg-primary: #ffffff;
+  --otaku-bg-secondary: #f8fafc;
+  --otaku-bg-tertiary: #f1f5f9;
+  --otaku-bg-card: rgba(255, 255, 255, 0.8);
+  --otaku-bg-glass: rgba(255, 255, 255, 0.1);
+
+  /* Light Theme Text Colors */
+  --otaku-text-primary: #1e293b;
+  --otaku-text-secondary: #64748b;
+  --otaku-text-tertiary: #94a3b8;
+  --otaku-text-accent: #8b5cf6;
+
+  /* Light Theme Borders */
+  --otaku-border-primary: #e2e8f0;
+  --otaku-border-secondary: #cbd5e1;
+  --otaku-border-focus: #8b5cf6;
+
+  /* Shadows */
+  --otaku-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --otaku-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --otaku-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --otaku-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --otaku-shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Dark Theme Variables */
+.otaku-login-container.dark {
+  /* Dark Theme Backgrounds */
+  --otaku-bg-primary: #0f172a;
+  --otaku-bg-secondary: #1e293b;
+  --otaku-bg-tertiary: #334155;
+  --otaku-bg-card: rgba(15, 23, 42, 0.8);
+  --otaku-bg-glass: rgba(255, 255, 255, 0.05);
+
+  /* Dark Theme Text Colors */
+  --otaku-text-primary: #f1f5f9;
+  --otaku-text-secondary: #cbd5e1;
+  --otaku-text-tertiary: #94a3b8;
+  --otaku-text-accent: #a855f7;
+
+  /* Dark Theme Borders */
+  --otaku-border-primary: #334155;
+  --otaku-border-secondary: #475569;
+  --otaku-border-focus: #a855f7;
+
+  /* Dark Shadows */
+  --otaku-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --otaku-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4),
+    0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --otaku-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4),
+    0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --otaku-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5),
+    0 10px 10px -5px rgba(0, 0, 0, 0.4);
+  --otaku-shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Main Container */
+.otaku-login-container {
+  min-height: 100vh;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  background: var(--otaku-bg-primary);
+  color: var(--otaku-text-primary);
+  position: relative;
+  overflow-x: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animated Background */
+.otaku-bg-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.otaku-floating-element {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--otaku-primary-gradient);
+  opacity: 0.1;
+  animation: otaku-float 20s infinite linear;
+}
+
+.otaku-anime-1 {
+  width: 80px;
+  height: 80px;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.otaku-anime-2 {
+  width: 120px;
+  height: 120px;
+  top: 20%;
+  right: 15%;
+  animation-delay: -5s;
+  background: var(--otaku-secondary-gradient);
+}
+
+.otaku-anime-3 {
+  width: 60px;
+  height: 60px;
+  bottom: 30%;
+  left: 20%;
+  animation-delay: -10s;
+}
+
+.otaku-anime-4 {
+  width: 100px;
+  height: 100px;
+  bottom: 20%;
+  right: 10%;
+  animation-delay: -15s;
+  background: linear-gradient(135deg, #f59e0b 0%, #eab308 100%);
+}
+
+.otaku-anime-5 {
+  width: 40px;
+  height: 40px;
+  top: 50%;
+  left: 5%;
+  animation-delay: -7s;
+  background: var(--otaku-secondary-gradient);
+}
+
+@keyframes otaku-float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(20px) rotate(240deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(360deg);
+  }
+}
+
+/* Main Wrapper */
+.otaku-login-wrapper {
+  display: flex;
+  min-height: 80vh;
+  position: relative;
+  z-index: 2;
+}
+
+/* Branding Section */
+.otaku-branding-section {
+  flex: 1;
+  background: var(--otaku-primary-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.otaku-branding-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+.otaku-brand-content {
+  max-width: 600px;
+  text-align: center;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.otaku-logo-container {
+  margin-bottom: 3rem;
+}
+
+.otaku-logo-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: var(--otaku-shadow-glass);
+}
+
+.otaku-logo-svg {
+  width: 40px;
+  height: 40px;
+  color: white;
+}
+
+.otaku-brand-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.otaku-brand-description {
+  margin-bottom: 3rem;
+}
+
+.otaku-welcome-text {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.otaku-subtitle {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 0;
+  color: white !important;
+}
+
+.otaku-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.otaku-feature-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.otaku-feature-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.otaku-feature-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.otaku-feature-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.otaku-feature-card p {
+  font-size: 0.875rem;
+  opacity: 0.8;
+  margin: 0;
+  color: #e4ecf9 !important;
+}
+
+.otaku-stats-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.otaku-stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.otaku-stat-number {
+  display: block;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  font-family: "Poppins", sans-serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.otaku-stat-label {
+  display: block;
+  font-size: 0.875rem;
+  opacity: 0.8;
+  margin-top: 0.25rem;
+}
+
+/* Form Section */
+.otaku-form-section {
+  flex: 1;
+  background: var(--otaku-bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.otaku-form-container {
+  width: 100%;
+  max-width: 620px;
+  background: var(--otaku-bg-card);
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow: var(--otaku-shadow-xl);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--otaku-border-primary);
+  position: relative;
+}
+
+.otaku-form-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.otaku-form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: var(--otaku-primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: "Poppins", sans-serif;
+}
+
+.otaku-form-subtitle {
+  color: var(--otaku-text-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Form Styles */
+.otaku-login-form {
+  margin-bottom: 2rem;
+}
+
+.otaku-input-group {
+  margin-bottom: 1.5rem;
+}
+
+.otaku-input-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--otaku-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.otaku-input-wrapper {
+  position: relative;
+}
+
+.otaku-form-input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;
+  border: 2px solid var(--otaku-border-primary);
+  border-radius: 12px;
+  font-size: 1rem;
+  background: var(--otaku-bg-secondary);
+  color: var(--otaku-text-primary);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.otaku-form-input:focus {
+  border-color: var(--otaku-border-focus);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  background: var(--otaku-bg-primary);
+}
+
+.otaku-form-input.otaku-input-error {
+  border-color: var(--otaku-error-color);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.otaku-input-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: var(--otaku-text-tertiary);
+  transition: color 0.3s ease;
+}
+
+.otaku-form-input:focus + .otaku-input-icon {
+  color: var(--otaku-border-focus);
+}
+
+.otaku-password-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  width: 20px;
+  height: 20px;
+  color: var(--otaku-text-tertiary);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.otaku-password-toggle:hover {
+  color: var(--otaku-text-primary);
+}
+
+.otaku-password-toggle svg {
+  width: 100%;
+  height: 100%;
+}
+
+.otaku-error-message {
+  display: block;
+  color: var(--otaku-error-color);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.otaku-form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.otaku-remember-me {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--otaku-text-secondary);
+}
+
+.otaku-checkbox {
+  display: none;
+}
+
+.otaku-checkbox-custom {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--otaku-border-secondary);
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.otaku-checkbox:checked + .otaku-checkbox-custom {
+  background: var(--otaku-primary-gradient);
+  border-color: transparent;
+}
+
+.otaku-checkbox:checked + .otaku-checkbox-custom::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -60%) rotate(45deg);
+}
+
+.otaku-forgot-link {
+  background: none;
+  border: none;
+  color: var(--otaku-text-accent);
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.otaku-forgot-link:hover {
+  color: var(--otaku-border-focus);
+  text-decoration: underline;
+}
+
+/* Submit Button */
+.otaku-submit-btn {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: var(--otaku-primary-gradient);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: var(--otaku-shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.otaku-submit-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.otaku-submit-btn:hover::before {
+  left: 100%;
+}
+
+.otaku-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--otaku-shadow-lg);
+}
+
+.otaku-submit-btn:active {
+  transform: translateY(0);
+}
+
+.otaku-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.otaku-submit-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+
+.otaku-submit-btn:hover svg {
+  transform: translateX(2px);
+}
+
+.otaku-loading-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: otaku-spin 1s linear infinite;
+}
+
+@keyframes otaku-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Form Footer */
+.otaku-form-footer {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.otaku-signup-text {
+  color: var(--otaku-text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.otaku-signup-link {
+  color: var(--otaku-text-accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.otaku-signup-link:hover {
+  color: var(--otaku-border-focus);
+  text-decoration: underline;
+}
+
+/* Social Login */
+.otaku-social-login {
+  margin-top: 2rem;
+}
+
+.otaku-divider {
+  position: relative;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.otaku-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--otaku-border-primary);
+}
+
+.otaku-divider span {
+  background: var(--otaku-bg-card);
+  padding: 0 1rem;
+  color: var(--otaku-text-tertiary);
+  font-size: 0.875rem;
+  position: relative;
+  z-index: 1;
+}
+
+.otaku-social-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.otaku-social-btn {
+  flex: 1;
+  padding: 0.875rem;
+  border: 2px solid var(--otaku-border-primary);
+  border-radius: 12px;
+  background: var(--otaku-bg-secondary);
+  color: var(--otaku-text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.otaku-social-btn:hover {
+  border-color: var(--otaku-border-secondary);
+  background: var(--otaku-bg-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--otaku-shadow-md);
+}
+
+.otaku-social-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Footer */
+.otaku-login-footer {
+  background: var(--otaku-bg-secondary);
+  border-top: 1px solid var(--otaku-border-primary);
+  padding: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.otaku-footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.otaku-footer-content p {
+  color: var(--otaku-text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.otaku-footer-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.otaku-footer-links a {
+  color: var(--otaku-text-tertiary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.otaku-footer-links a:hover {
+  color: var(--otaku-text-accent);
+}
+
+/* Animations */
+.otaku-slide-in-left {
+  animation: otaku-slideInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.otaku-slide-in-right {
+  animation: otaku-slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes otaku-slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes otaku-slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .otaku-login-wrapper {
+    flex-direction: column;
+  }
+
+  .otaku-branding-section {
+    min-height: 40vh;
+  }
+
+  .otaku-form-section {
+    min-height: 60vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .otaku-branding-section {
+    padding: 1.5rem;
+    min-height: 35vh;
+  }
+
+  .otaku-form-section {
+    padding: 1.5rem;
+  }
+
+  .otaku-form-container {
+    padding: 2rem;
+  }
+
+  .otaku-features-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .otaku-stats-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .otaku-form-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .otaku-social-buttons {
+    flex-direction: column;
+  }
+
+  .otaku-footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .otaku-footer-links {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .otaku-branding-section {
+    padding: 1rem;
+  }
+
+  .otaku-form-section {
+    padding: 1rem;
+  }
+
+  .otaku-form-container {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .otaku-brand-content {
+    max-width: 100%;
+  }
+
+  .otaku-logo-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .otaku-logo-svg {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .otaku-form-container {
+    backdrop-filter: blur(40px);
+  }
+
+  .otaku-feature-card {
+    backdrop-filter: blur(40px);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .otaku-floating-element {
+    animation: none;
+  }
+
+  .otaku-slide-in-left,
+  .otaku-slide-in-right {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .otaku-submit-btn::before {
+    display: none;
+  }
+}
+
+/* Focus Styles for Accessibility */
+.otaku-form-input:focus-visible,
+.otaku-submit-btn:focus-visible,
+.otaku-social-btn:focus-visible,
+.otaku-forgot-link:focus-visible,
+.otaku-signup-link:focus-visible {
+  outline: 2px solid var(--otaku-border-focus);
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .otaku-bg-animation,
+  .otaku-social-login,
+  .otaku-login-footer {
+    display: none;
+  }
+
+  .otaku-login-container {
+    background: white;
+    color: black;
+  }
+}
