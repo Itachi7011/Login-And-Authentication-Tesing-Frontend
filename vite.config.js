@@ -6,7 +6,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": "http://localhost:5000/",
+      "/api": "https://userloginauthenticationmicroservice.onrender.com/",
     },
   },
 })
+
+
+// https://userloginauthenticationmicroservice.onrender.com
+
+// http://localhost:5000
