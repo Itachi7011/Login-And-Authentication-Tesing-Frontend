@@ -80,7 +80,7 @@ const OtakuLogin = () => {
             if (response.ok) {
 
                 dispatch({ type: "USER", payload: data.user });
-                
+
                 await Swal.fire({
                     title: 'Welcome to Otaku Wave!',
                     text: data.message,
@@ -184,19 +184,19 @@ const OtakuLogin = () => {
 
                         <div className="otaku-features-grid">
                             <div className="otaku-feature-card">
-                                <div className="otaku-feature-icon">🎌</div>
-                                <h3>Premium Quality</h3>
-                                <p>Best Quality Apis and data-services</p>
+                                <div className="otaku-feature-icon">🔌</div>
+                                <h3>API Integration</h3>
+                                <p>Seamlessly integrate our APIs into your applications</p>
                             </div>
                             <div className="otaku-feature-card">
-                                <div className="otaku-feature-icon">⚡</div>
-                                <h3>Lightning Fast</h3>
-                                <p>Zero buffering, instant loading</p>
+                                <div className="otaku-feature-icon">📊</div>
+                                <h3>Usage Analytics</h3>
+                                <p>Monitor your API usage and performance metrics</p>
                             </div>
                             <div className="otaku-feature-card">
-                                <div className="otaku-feature-icon">🌟</div>
-                                <h3>Best Security of Data</h3>
-                                <p>All Sensitive is encrypted</p>
+                                <div className="otaku-feature-icon">🔒</div>
+                                <h3>Secure Access</h3>
+                                <p>Enterprise-grade security for all API communications</p>
                             </div>
                         </div>
 
