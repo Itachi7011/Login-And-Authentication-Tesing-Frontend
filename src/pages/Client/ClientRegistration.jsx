@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Eye, EyeOff, Globe, Building2, FileText, Clock, Mail, Shield, CheckCircle, AlertCircle } from 'lucide-react';
-
+import { Eye, EyeOff, Globe, Building2, FileText, Clock, Mail, Shield, CheckCircle, AlertCircle, Palette } from 'lucide-react';
+import Swal from 'sweetalert2';
 const ClientSignupPage = () => {
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
+    password: '',
     website: '',
     description: '',
-    allowedDomains: [''],
-    redirectUris: [''],
-    otpTemplate: {
-      subject: 'Your Verification Code',
-      message: 'Your OTP is: {otp}. Valid for {expiration} minutes.',
-      expiration: 10
+    branding: {
+      companyName: '',
     }
   });
 
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [showApiKey, setShowApiKey] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [generatedClient, setGeneratedClient] = useState(null);
 
   useEffect(() => {
@@ -38,24 +36,34 @@ const ClientSignupPage = () => {
   };
 
   const showAlert = (type, title, text) => {
-    // Using browser's built-in alert for now - you can replace with SweetAlert2 in your implementation
     if (type === 'success') {
-      alert(`${title}: ${text}`);
+      Swal.fire({
+        icon: 'success',
+        title: title,
+        text: text,
+        confirmButtonColor: '#3085d6',
+      });
     } else if (type === 'error') {
-      alert(`Error - ${title}: ${text}`);
+      Swal.fire({
+        icon: 'error',
+        title: title,
+        text: text,
+        confirmButtonColor: '#d33',
+      });
     }
   };
 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
-    if (name.includes('otpTemplate.')) {
+
+    if (name.includes('branding.')) {
       const field = name.split('.')[1];
       setFormData(prev => ({
         ...prev,
-        otpTemplate: {
-          ...prev.otpTemplate,
-          [field]: field === 'expiration' ? parseInt(value) || 10 : value
+        branding: {
+          ...prev.branding,
+          [field]: value
         }
       }));
     } else {
@@ -74,36 +82,25 @@ const ClientSignupPage = () => {
     }
   };
 
-  const handleArrayInputChange = (index, value, arrayName) => {
-    setFormData(prev => ({
-      ...prev,
-      [arrayName]: prev[arrayName].map((item, i) => i === index ? value : item)
-    }));
-  };
-
-  const addArrayField = (arrayName) => {
-    setFormData(prev => ({
-      ...prev,
-      [arrayName]: [...prev[arrayName], '']
-    }));
-  };
-
-  const removeArrayField = (index, arrayName) => {
-    if (formData[arrayName].length > 1) {
-      setFormData(prev => ({
-        ...prev,
-        [arrayName]: prev[arrayName].filter((_, i) => i !== index)
-      }));
-    }
-  };
-
   const validateForm = () => {
     const newErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Company name is required';
+      newErrors.name = 'Name is required';
     } else if (formData.name.trim().length < 2) {
-      newErrors.name = 'Company name must be at least 2 characters';
+      newErrors.name = 'Name must be at least 2 characters';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please provide a valid email';
+    }
+
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    } else if (formData.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters';
     }
 
     if (!formData.website.trim()) {
@@ -116,35 +113,13 @@ const ClientSignupPage = () => {
       }
     }
 
-    if (formData.otpTemplate.expiration < 1 || formData.otpTemplate.expiration > 60) {
-      newErrors.otpExpiration = 'OTP expiration must be between 1-60 minutes';
-    }
-
-    // Validate allowed domains
-    formData.allowedDomains.forEach((domain, index) => {
-      if (domain.trim() && !domain.match(/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/)) {
-        newErrors[`allowedDomains_${index}`] = 'Invalid domain format';
-      }
-    });
-
-    // Validate redirect URIs
-    formData.redirectUris.forEach((uri, index) => {
-      if (uri.trim()) {
-        try {
-          new URL(uri);
-        } catch {
-          newErrors[`redirectUris_${index}`] = 'Invalid URL format';
-        }
-      }
-    });
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       showAlert('error', 'Validation Error', 'Please fix the errors and try again.');
       return;
@@ -153,18 +128,18 @@ const ClientSignupPage = () => {
     setLoading(true);
 
     try {
-      // Filter out empty values from arrays
+      // Clean up empty branding fields
       const cleanedData = {
         ...formData,
-        allowedDomains: formData.allowedDomains.filter(domain => domain.trim()),
-        redirectUris: formData.redirectUris.filter(uri => uri.trim())
+        branding: {
+          ...(formData.branding.companyName && { companyName: formData.branding.companyName }),
+        }
       };
 
-      const response = await fetch('/api/clients', {
+      const response = await fetch('/api/clients/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-        //   'Authorization': `Bearer ${localStorage.getItem('token')}` // Assuming JWT token
         },
         body: JSON.stringify(cleanedData)
       });
@@ -173,30 +148,49 @@ const ClientSignupPage = () => {
 
       if (response.ok && data.status === 'success') {
         setGeneratedClient(data.data.client);
-        
-        showAlert('success', 'Client Created Successfully!', 
-          `Your client has been registered successfully. API Key: ${data.data.client.apiKey} (Please save this securely)`);
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Registration Successful!',
+          html: `Your account has been created successfully. Please check your email for verification OTP.<br><br>
+           <strong>API Key:</strong> ${data.data.client.apiKey}<br>
+           <em>(Please save this securely)</em>`,
+          confirmButtonColor: '#3085d6',
+        });
 
         // Reset form
         setFormData({
           name: '',
+          email: '',
+          password: '',
           website: '',
           description: '',
-          allowedDomains: [''],
-          redirectUris: [''],
-          otpTemplate: {
-            subject: 'Your Verification Code',
-            message: 'Your OTP is: {otp}. Valid for {expiration} minutes.',
-            expiration: 10
+          branding: {
+            companyName: '',
           }
         });
-        
+
       } else {
-        throw new Error(data.message || 'Failed to create client');
+        // Handle API validation errors
+        if (data.errors && Array.isArray(data.errors)) {
+          const apiErrors = {};
+          data.errors.forEach(error => {
+            apiErrors[error.path] = error.msg;
+          });
+          setErrors(apiErrors);
+          throw new Error('Please fix the validation errors');
+        }
+        throw new Error(data.message || 'Failed to register');
       }
     } catch (error) {
-      console.error('Error creating client:', error);
-      showAlert('error', 'Registration Failed', error.message || 'Something went wrong. Please try again.');
+      console.error('Error registering client:', error);
+      Swal.fire({
+    icon: 'error',
+    title: 'Registration Failed',
+    text: error.message || 'Something went wrong. Please try again.',
+    confirmButtonColor: '#d33',
+  });
+  
     } finally {
       setLoading(false);
     }
@@ -219,7 +213,7 @@ const ClientSignupPage = () => {
             <Shield className="brand-icon" />
             Login & Auth
           </h1>
-          <button 
+          <button
             className="theme-toggle-btn"
             onClick={toggleTheme}
             aria-label="Toggle theme"
@@ -248,10 +242,10 @@ const ClientSignupPage = () => {
                 <Building2 className="section-icon" />
                 Basic Information
               </h3>
-              
+
               <div className="form-group">
                 <label className="form-label" htmlFor="client-name-input">
-                  Company Name *
+                  Name *
                 </label>
                 <input
                   id="client-name-input"
@@ -260,12 +254,67 @@ const ClientSignupPage = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   className={`form-input ${errors.name ? 'error' : ''}`}
-                  placeholder="Enter your company name"
+                  placeholder="Enter your name"
                 />
                 {errors.name && (
                   <span className="error-message">
                     <AlertCircle className="error-icon" />
                     {errors.name}
+                  </span>
+                )}
+              </div>
+
+              <div className="form-group">
+                <label className="form-label" htmlFor="client-email-input">
+                  Email *
+                </label>
+                <div className="input-with-icon">
+                  <Mail className="input-icon" />
+                  <input
+                    id="client-email-input"
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={`form-input with-icon ${errors.email ? 'error' : ''}`}
+                    placeholder="your@email.com"
+                  />
+                </div>
+                {errors.email && (
+                  <span className="error-message">
+                    <AlertCircle className="error-icon" />
+                    {errors.email}
+                  </span>
+                )}
+              </div>
+
+              <div className="form-group">
+                <label className="form-label" htmlFor="client-password-input">
+                  Password *
+                </label>
+                <div className="input-with-icon">
+                  <Shield className="input-icon" />
+                  <input
+                    id="client-password-input"
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    className={`form-input with-icon ${errors.password ? 'error' : ''}`}
+                    placeholder="At least 8 characters"
+                  />
+                  <button
+                    type="button"
+                    className="password-toggle"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
+                {errors.password && (
+                  <span className="error-message">
+                    <AlertCircle className="error-icon" />
+                    {errors.password}
                   </span>
                 )}
               </div>
@@ -313,156 +362,29 @@ const ClientSignupPage = () => {
               </div>
             </div>
 
-            {/* Security Configuration */}
+            {/* Branding Configuration */}
             <div className="form-section">
               <h3 className="section-title">
-                <Shield className="section-icon" />
-                Security Configuration
+                <Palette className="section-icon" />
+                Branding (Optional)
               </h3>
 
               <div className="form-group">
-                <label className="form-label">Allowed Domains</label>
-                <p className="form-help">Domains that can use your API key</p>
-                {formData.allowedDomains.map((domain, index) => (
-                  <div key={index} className="array-input-group">
-                    <input
-                      type="text"
-                      value={domain}
-                      onChange={(e) => handleArrayInputChange(index, e.target.value, 'allowedDomains')}
-                      className={`form-input ${errors[`allowedDomains_${index}`] ? 'error' : ''}`}
-                      placeholder="example.com"
-                    />
-                    {formData.allowedDomains.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeArrayField(index, 'allowedDomains')}
-                        className="remove-btn"
-                      >
-                        ×
-                      </button>
-                    )}
-                    {errors[`allowedDomains_${index}`] && (
-                      <span className="error-message">
-                        <AlertCircle className="error-icon" />
-                        {errors[`allowedDomains_${index}`]}
-                      </span>
-                    )}
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={() => addArrayField('allowedDomains')}
-                  className="add-btn"
-                >
-                  + Add Domain
-                </button>
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">Redirect URIs</label>
-                <p className="form-help">Valid redirect URLs for OAuth flows</p>
-                {formData.redirectUris.map((uri, index) => (
-                  <div key={index} className="array-input-group">
-                    <input
-                      type="url"
-                      value={uri}
-                      onChange={(e) => handleArrayInputChange(index, e.target.value, 'redirectUris')}
-                      className={`form-input ${errors[`redirectUris_${index}`] ? 'error' : ''}`}
-                      placeholder="https://yourapp.com/callback"
-                    />
-                    {formData.redirectUris.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeArrayField(index, 'redirectUris')}
-                        className="remove-btn"
-                      >
-                        ×
-                      </button>
-                    )}
-                    {errors[`redirectUris_${index}`] && (
-                      <span className="error-message">
-                        <AlertCircle className="error-icon" />
-                        {errors[`redirectUris_${index}`]}
-                      </span>
-                    )}
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={() => addArrayField('redirectUris')}
-                  className="add-btn"
-                >
-                  + Add URI
-                </button>
-              </div>
-            </div>
-
-            {/* OTP Template Configuration */}
-            <div className="form-section">
-              <h3 className="section-title">
-                <Mail className="section-icon" />
-                OTP Template Configuration
-              </h3>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label className="form-label" htmlFor="otp-subject-input">
-                    Email Subject
-                  </label>
-                  <input
-                    id="otp-subject-input"
-                    type="text"
-                    name="otpTemplate.subject"
-                    value={formData.otpTemplate.subject}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="Your Verification Code"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label" htmlFor="otp-expiration-input">
-                    Expiration (minutes) *
-                  </label>
-                  <div className="input-with-icon">
-                    <Clock className="input-icon" />
-                    <input
-                      id="otp-expiration-input"
-                      type="number"
-                      name="otpTemplate.expiration"
-                      value={formData.otpTemplate.expiration}
-                      onChange={handleInputChange}
-                      className={`form-input with-icon ${errors.otpExpiration ? 'error' : ''}`}
-                      min="1"
-                      max="60"
-                    />
-                  </div>
-                  {errors.otpExpiration && (
-                    <span className="error-message">
-                      <AlertCircle className="error-icon" />
-                      {errors.otpExpiration}
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label className="form-label" htmlFor="otp-message-input">
-                  Email Message Template
+                <label className="form-label" htmlFor="branding-company-input">
+                  Company Name
                 </label>
-                <textarea
-                  id="otp-message-input"
-                  name="otpTemplate.message"
-                  value={formData.otpTemplate.message}
+                <input
+                  id="branding-company-input"
+                  type="text"
+                  name="branding.companyName"
+                  value={formData.branding.companyName}
                   onChange={handleInputChange}
-                  className="form-textarea"
-                  placeholder="Your OTP is: {otp}. Valid for {expiration} minutes."
-                  rows="3"
+                  className="form-input"
+                  placeholder="Your company name"
                 />
-                <p className="form-help">
-                  Use {'{otp}'} for the code and {'{expiration}'} for expiration time
-                </p>
               </div>
+
+
             </div>
 
             <div className="form-actions">
@@ -477,7 +399,7 @@ const ClientSignupPage = () => {
                 ) : (
                   <>
                     <CheckCircle className="btn-icon" />
-                    Register Client
+                    Register
                   </>
                 )}
               </button>

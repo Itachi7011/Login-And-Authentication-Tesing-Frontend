@@ -13,6 +13,7 @@ import "./css/UserProfile.css"
 import "./css/Navbar.css"
 import "./css/ClientRegistration.css"
 import "./css/ClientApiKeys.css"
+import "./css/ClientProfile.css"
 
 
 
@@ -23,6 +24,7 @@ import UserProfile from './pages/User/UserProfile';
 import ClientApiKeys from './pages/Client/ClientApiKeys';
 import ClientLogin from './pages/Client/ClientLogin';
 import ClientRegistration from './pages/Client/ClientRegistration';
+import ClientProfile from './pages/Client/ClientProfile';
 
 // import Error404 from './components/Error/Error404';
 
@@ -38,7 +40,7 @@ function App() {
     dispatch({ type: "LOAD_USER" });
   }, []);
 
-console.log(state)
+  console.log(state)
 
   return (
     <UserContext.Provider value={{ state, dispatch }}>
@@ -57,6 +59,7 @@ console.log(state)
             <Route path="/UserProfile" element={<UserProfile />} />
             <Route path="/ClientRegistration" element={<ClientRegistration />} />
             <Route path="/ClientLogin" element={<ClientLogin />} />
+            <Route path="/ClientProfile" element={<ClientProfile />} />
             <Route path="/ClientApiKeys" element={<ClientApiKeys />} />
 
 

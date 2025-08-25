@@ -78,7 +78,7 @@ const ClientLogin = () => {
         setClientIsLoading(true);
 
         try {
-            const endpoint = isLoginMode ? '/api/client-auth/login' : '/api/client-auth/register';
+            const endpoint = isLoginMode ? '/api/clients/login' : '/api/clients/register';
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
@@ -96,7 +96,6 @@ const ClientLogin = () => {
                     name: data.data.client.name,
                     email: data.data.client.email,
                     website: data.data.client.website,
-                    apiKey: data.data.client.apiKey,
                     subscription: data.data.client.subscription,
                     token: data.data.token,
                     userType: 'client' // Add user type to distinguish between regular users and clients
@@ -106,10 +105,12 @@ const ClientLogin = () => {
 
                 console.log(data.client)
 
+
+
                 // Store client token
                 if (typeof (Storage) !== "undefined") {
 
-                    localStorage.setItem('clientToken', data.data.token);
+                    localStorage.setItem('clientTokens', data.data.token);
                     localStorage.setItem('client', JSON.stringify(userData));
 
                 }
@@ -125,7 +126,7 @@ const ClientLogin = () => {
                 });
 
                 // Redirect to client dashboard
-                window.location.href = '/client-dashboard';
+                window.location.href = '/ClientProfile';
             } else {
                 await Swal.fire({
                     title: isLoginMode ? 'Login Failed' : 'Registration Failed',
